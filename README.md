@@ -31,6 +31,6 @@ fabfile = {
 ````
 
 
-[index]: https://raw.github.com/daniellawrence/fabric-web/blob/master/screenshots/index.png "Index"
-[task]: https://raw.github.com/daniellawrence/fabric-web/blob/master/screenshots/run_task.png "Run task.png"
+[index]: https://raw.github.com/daniellawrence/fabric-web/master/screenshots/index.png "Index"
+[task]: https://raw.github.com/daniellawrence/fabric-web/master/screenshots/run_task.png "Run task.png"
 [results]: https://raw.github.com/daniellawrence/fabric-web/master/screenshots/results.png "results"
