@@ -57,10 +57,6 @@ def task_display(fabfile, task_name):
 
 
 def execute_task(task, hosts, roles, *args, **kwargs):
-    #execute(task,
-    #        hosts = hosts,
-    #        *args,
-    #        **kwargs)
     from fabric.api import env, execute
     from StringIO import StringIO
     import sys
@@ -76,8 +72,6 @@ def execute_task(task, hosts, roles, *args, **kwargs):
     data = None
     try:
         data = execute(task, *args, **kwargs)
-    #except Exception as exception_error:
-    #    print "unknown error: %s" % exception_error
     except SystemExit:
         print "fabric had a fatal exception, that caused it to exit."
     finally:
