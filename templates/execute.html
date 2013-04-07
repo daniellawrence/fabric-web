@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>executed <strong>{{task.name}}</strong> on {{state.env.hosts|join(', ')}}.</h2>
+    <Br />
+    {% if errors %}
+    <div class="alert alert-error">
+	    <strong>The excution of task {{task.name}} ran into the following errors:</strong><Br />
+    <pre>{{errors}}</pre>
+    </div>
+    {% endif %}
+
+
+    {% for host, lines in results.items() %}
+    <h3>output for {{host}}</h3><Br />
+    <pre>{{lines|join('\n')}}</pre>
+
+    {% endfor %}
+
+    <Hr />
+    <h3>CMD</h3>
+    <p>Here is the command that we just run, if you want to add it into a script.</p>
+    <pre>$ fab {{task.name}} -H {{state.env.hosts|join(',')}}</pre>
+
+
+{% endblock %}
+

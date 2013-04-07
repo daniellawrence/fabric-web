@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form action='execute' method='POST' class='form-horizontal'>
+
+        <h2>{{task.name|replace('_',' ')|title}}!</h2>
+        <p>{{task.__doc__}}</p>
+    <Hr />
+
+    {% if task_dict.argspec.args %}
+    <h4>Args required by {{task.name|replace('_',' ')}}</h4>
+
+
+        {% for arg in args_without_defaults %}
+    <div class="control-group">
+            <label class="control-label" for="input{{arg}}">{{arg}} <font color='red' size='+2'>*</font></label>
+            <div class="controls">
+              <input type="text" name='{{arg}}' id="input{{arg}}" >
+            </div>
+      </div>
+    {% endfor %}
+
+        {% for arg, default in args_with_defaults %}
+
+    <div class="control-group">
+            <label class="control-label" for="input{{arg}}">{{arg}}</label>
+            <div class="controls">
+              <input type="text" name='{{arg}}' id="input{{arg}}" placeholder="{{default}}">
+            </div>
+      </div>
+
+
+        {% endfor %}
+
+        {% endif %}
+
+
+        <h4>Execute the task on...</h4>
+
+
+    {% if state.env.roledefs %}
+    <div class="control-group">
+            <label class="control-label" for="inputroles">Roles</label>
+        <div class="controls">
+
+        <label class="radio">
+        <input type="radio" name="env_roles" id="optionsRadiosNone" value="" checked>
+        <strong>No Roles</strong> - I'm going to use hostnames.
+    </label>
+
+    {% for roledef, hosts in state.env.roledefs.items() %}
+    <!-- <option value='{{roledef}}'>{{roledef}} - {{hosts|join(',')}}</option>
+    -->
+
+        <label class="radio">
+        <input type="radio" name="env_roles" id="optionsRadios{{redfef}}" value="{{roledef}}">
+        <strong>{{roledef}}</strong> - {{hosts|join(',')}}
+    </label>
+    {% endfor %}
+            </div>
+      </div>
+{% endif %}
+    <Br />
+
+    <div class="control-group">
+            <label class="control-label" for="inputhostname">hostname</label>
+            <div class="controls">
+              <input type="text" name='env_hosts' id="inputhosts" >
+            </div>
+      </div>
+
+    <h3>Just so you know...</h3>
+    <p>This is the code that your will be executing on the remote system.</p>
+    <pre>{{task_dict.source_code}}</pre>
+
+    <Br />
+    <Br />
+
+    <h3>Execute {{task.name}}</h3>
+    <p>{{task.__doc__}}</p>
+    <input type='submit' value='Execute this task on the selected hosts' class='btn-large btn-danger' />
+
+</form>
+
+
+{% endblock %}

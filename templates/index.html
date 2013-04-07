@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if task_list %}
+<h3>Fabric tasks</h3>
+<p>These tasks have been extracted from your fabfile.py, that wes provied in the settings.py file.</p>
+
+<ul>
+	{% for fabfile_name, fabfile in task_list.items() %}
+    <Br />
+
+    <h3><a href='/fabfile/{{fabfile.alias}}'>{{fabfile.alias}}</a></h3>
+    <p>{{fabfile.doc}}</h3>
+    {% for task_name, task in fabfile.tasks.items() %}
+    <li><strong><a href='/fabfile/{{fabfile.alias}}/task/{{task_name}}/'>{{task_name}}</a></strong>: {{task.__doc__}}</li>
+    {% endfor %}
+    {% endfor %}
+</ul>
+
+    {% endif %}
+{% endblock %}
