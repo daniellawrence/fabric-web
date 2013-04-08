@@ -21,7 +21,10 @@ listen_port = 5000
 debug = True
 
 # Show hostname field
-show_hostname_field = False
+show_hostname_field = True
+
+# show task code in execute form
+show_task_code_in_execution_form = True
 
 # Grab you local settings, without messing up the git_commit
 try:
