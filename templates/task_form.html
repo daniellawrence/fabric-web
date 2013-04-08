@@ -3,7 +3,6 @@
 {% block content %}
 
     <form action='execute' method='POST' class='form-horizontal'>
-
         <h2>{{task.name|replace('_',' ')|title}}!</h2>
         <p>{{task.__doc__}}</p>
     <Hr />
@@ -12,7 +11,7 @@
     <h4>Args required by {{task.name|replace('_',' ')}}</h4>
 
 
-        {% for arg in args_without_defaults %}
+        {% for arg in task_dict.args_without_defaults %}
     <div class="control-group">
             <label class="control-label" for="input{{arg}}">{{arg}} <font color='red' size='+2'>*</font></label>
             <div class="controls">
@@ -21,7 +20,7 @@
       </div>
     {% endfor %}
 
-        {% for arg, default in args_with_defaults %}
+        {% for arg, default in task_dict.args_with_defaults %}
 
     <div class="control-group">
             <label class="control-label" for="input{{arg}}">{{arg}}</label>
@@ -44,7 +43,7 @@
             <label class="control-label" for="inputroles">Roles</label>
         <div class="controls">
 
-        {% if settings.hostname %}
+        {% if settings.show_hostname_field %}
         <label class="radio">
         <input type="radio" name="env_roles" id="optionsRadiosNone" value="" checked>
         <strong>No Roles</strong> - I'm going to use hostnames.
@@ -52,11 +51,10 @@
     </label>
 
     {% for roledef, hosts in state.env.roledefs.items() %}
-    <!-- <option value='{{roledef}}'>{{roledef}} - {{hosts|join(',')}}</option>
-    -->
-
-        <label class="radio">
-        <input type="radio" name="env_roles" id="optionsRadios{{redfef}}" value="{{roledef}}">
+    <label class="radio">
+        <input type="radio" name="env_roles" id="optionsRadios{{redfef}}" value="{{roledef}}"
+	{% if roledef in task_dict.roles %}checked{% endif %}
+	>
         <strong>{{roledef}}</strong> - {{hosts|join(',')}}
     </label>
     {% endfor %}
@@ -65,18 +63,20 @@
 {% endif %}
     <Br />
 
-    {% if settings.hostname %}
+    {% if settings.show_hostname_field %}
     <div class="control-group">
             <label class="control-label" for="inputhostname">hostname</label>
             <div class="controls">
-              <input type="text" name='env_hosts' id="inputhosts" >
+		    <input type="text" name='env_hosts' id="inputhosts" value='{{task_dict.hosts|join(',')}}' >
             </div>
         </div>
-    {% endif %}
+	{% endif %}
 
+    {% if settings.show_task_code_in_execution_form %}
     <h3>Just so you know...</h3>
     <p>This is the code that your will be executing on the remote system.</p>
     <pre>{{task_dict.source_code}}</pre>
+    {% endif %}
 
     <Br />
     <Br />
