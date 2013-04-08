@@ -6,7 +6,7 @@
 #   'packages': './fabfile-packages.py'
 #   }
 #
-fabfile = {'fabric-web': './fabfile.py'}
+fabfile = {'example-fabfile': './fabfile.py'}
 
 # default secert key that is used for flash
 # Change this...
@@ -19,6 +19,9 @@ listen_port = 5000
 
 # Turn on debug
 debug = True
+
+# Show hostname field
+show_hostname_field = False
 
 # Grab you local settings, without messing up the git_commit
 try:
