@@ -15,6 +15,10 @@ Add the required fields and choose the host(s) to run it on
 Review the results
 ![results][results]
 
+Just Added
+------------
+
+Horrible hacks to pull apart per-task decorators for hosts and roles.
 
 
 settings
