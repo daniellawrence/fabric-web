@@ -44,9 +44,11 @@
             <label class="control-label" for="inputroles">Roles</label>
         <div class="controls">
 
+        {% if settings.hostname %}
         <label class="radio">
         <input type="radio" name="env_roles" id="optionsRadiosNone" value="" checked>
         <strong>No Roles</strong> - I'm going to use hostnames.
+        {% endif %}
     </label>
 
     {% for roledef, hosts in state.env.roledefs.items() %}
@@ -63,12 +65,14 @@
 {% endif %}
     <Br />
 
+    {% if settings.hostname %}
     <div class="control-group">
             <label class="control-label" for="inputhostname">hostname</label>
             <div class="controls">
               <input type="text" name='env_hosts' id="inputhosts" >
             </div>
-      </div>
+        </div>
+    {% endif %}
 
     <h3>Just so you know...</h3>
     <p>This is the code that your will be executing on the remote system.</p>
