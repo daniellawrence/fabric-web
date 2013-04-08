@@ -1,6 +1,6 @@
+#!/usr/bin/env python
 """ Taking the magic of fabric and throwing up as a website for ease of use.
 """
-#!/usr/bin/env python
 from flask import Flask
 from flask import render_template
 from flask import request, redirect, flash
@@ -43,32 +43,14 @@ def task_display_single_Fabfile(fabfile):
 
 @app.route("/fabfile/<fabfile>/task/<task_name>/")
 def task_display(fabfile, task_name):
+    """ Render a task as a html form. """
     task = get_task(fabfile, task_name)
-    single_wrapped_task = task.__dict__['wrapped']
-    import inspect
-    argspec = inspect.getargspec( single_wrapped_task )
-    source_code = inspect.getsource(single_wrapped_task)
-    task_dict = task.__dict__
-    task_dict['argspec'] = argspec
-    task_dict['source_code'] = source_code
-
-    args = argspec.args
-    defaults = argspec.defaults
-
-    if defaults:
-        number_of_defaults = len(defaults) * -1
-        args_with_defaults = zip( args[number_of_defaults:], defaults)
-        args_without_defaults = args[:number_of_defaults]
-    else:
-        args_with_defaults = []
-        args_without_defaults = args
-
+    wrapped_task = task.__dict__['wrapped']
+    task_dict = easyfab.task_to_dict(task)
 
     return render('task_form.html', task=task, 
-                wrapped_task=single_wrapped_task, 
+                wrapped_task=wrapped_task, 
                 task_dict=task_dict,
-                args_with_defaults=args_with_defaults, 
-                args_without_defaults=args_without_defaults
                 )
 
 def execute_task(task, hosts, roles, *args, **kwargs):
@@ -118,10 +100,16 @@ def task_execute(fabfile, task_name):
     task = get_task(fabfile, task_name)
     form = request.form.copy()
 
-    hosts = form['env_hosts'] + ' '
-    roles = request.form['env_roles'] + ' '
-    del form['env_hosts']
-    del form['env_roles']
+    hosts = ""
+    roles = ""
+
+    if 'env_hosts' in form:
+        hosts = form['env_hosts'] + ' '
+        del form['env_hosts']
+
+    if 'env_roles' in form:
+        roles = request.form['env_roles'] + ' '
+        del form['env_roles']
 
     if ',' in hosts:
         hosts = hosts.split(',')
@@ -144,8 +132,6 @@ def task_execute(fabfile, task_name):
     stdout = easyfab.format_output(stdout)
 
     return render('execute.html', task=task, results=stdout, errors=stderr)
-    
-
 
 if __name__ == '__main__':
     app.host       = settings.listen_ip
