@@ -2,9 +2,6 @@
 
 {% block content %}
 {% if task_list %}
-<h3>Fabric tasks</h3>
-<p>These tasks have been extracted from your fabfile.py, that wes provied in the settings.py file.</p>
-
 <ul>
 	{% for fabfile_name, fabfile in task_list.items() %}
     <Br />
