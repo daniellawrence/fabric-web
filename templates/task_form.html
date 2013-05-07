@@ -8,7 +8,7 @@
     <Hr />
 
     {% if task_dict.argspec.args %}
-    <h4>Args required by {{task.name|replace('_',' ')}}</h4>
+    <h4>Arguments required by {{task.name|replace('_',' ')}}</h4>
 
 
         {% for arg in task_dict.args_without_defaults %}
@@ -46,7 +46,7 @@
         {% if settings.show_hostname_field %}
         <label class="radio">
         <input type="radio" name="env_roles" id="optionsRadiosNone" value="" checked>
-        <strong>No Roles</strong> - I'm going to use hostnames.
+        <strong>No Roles</strong> - I'm going to use simple hostnames.
         {% endif %}
     </label>
 
@@ -81,7 +81,7 @@
     <Br />
     <Br />
 
-    <h3>Execute {{task.name}}</h3>
+    <h3>Execute {{task.name|replace('_', ' ')}}</h3>
     <p>{{task.__doc__}}</p>
     <input type='submit' value='Execute this task on the selected hosts' class='btn-large btn-danger' />
 
