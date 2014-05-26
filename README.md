@@ -3,8 +3,24 @@ fabric-web
 
 Taking the magic of fabric and throwing up as a website for ease of use
 
+How to install
+-----------------
+
+Quick install onto your local machine.
+
+    $ git clone https://github.com/daniellawrence/fabric-web
+    $ pip install -r requirements.txt
+	
+
+How to run
+------------
+
+This will start the server on <http://localhost:5000/>
+
+    $ ./main.py
+
 screenshots
------------
+-------------
 
 Selecting a task from one of the imported fabfile.py's
 ![index][index]
