@@ -3,16 +3,19 @@
 {% block content %}
 {% if task_list %}
 <ul>
-	{% for fabfile_name, fabfile in task_list.items() %}
-    <Br />
-
-    <h3><a href='/fabfile/{{fabfile.alias}}'>{{fabfile.alias|replace('-',' ')|title}}</a></h3>
-    <p>{{fabfile.doc}}</h3>
-    {% for task_name, task in fabfile.tasks.items() %}
-    <li><strong><a href='/fabfile/{{fabfile.alias}}/task/{{task_name}}/'>{{task_name|replace('_', ' ')}}</a></strong>: {{task.__doc__}}</li>
-    {% endfor %}
-    {% endfor %}
+  {% for fabfile_name, fabfile in task_list.items() %}
+  <Br />
+  
+  <h3>
+    <a href='/fabfile/{{fabfile.alias}}'>{{fabfile.alias|replace('-',' ')|title}}</a>
+  </h3>
+  <pre>{{fabfile.doc}}</pre>
+  
+  {% for task_name, task in fabfile.tasks.items() %}
+  <li><strong><a href='/fabfile/{{fabfile.alias}}/task/{{task_name}}/'>{{task_name|replace('_', ' ')}}</a></strong>: {{task.__doc__}}</li>
+  {% endfor %}
+  {% endfor %}
 </ul>
 
-    {% endif %}
+{% endif %}
 {% endblock %}
