@@ -108,6 +108,9 @@ def task_execute(fabfile, task_name):
     """ Read in the form post, then execute the task. """
     task = get_task(fabfile, task_name)
     form = request.form.copy()
+    filtered_form = {}
+
+
 
     hosts = ""
     roles = ""
@@ -136,7 +139,27 @@ def task_execute(fabfile, task_name):
         flash('You need to provide either a hostname or choose a role.')
         return redirect("/fabfile/%(fabfile)s/task/%(task_name)s" % locals())
 
-    stdout, stderr = execute_task(task, hosts=hosts, roles=roles, **form)
+    from easyfab import task_to_dict
+    for field, value in form.items():
+        value = value.strip()
+        if not value:
+            continue
+        filtered_form[field] = value
+
+    missing_required_args = False
+    for required_arg in task_to_dict(task)['required_args']:
+        if required_arg not in filtered_form.keys():
+            missing_required_args = True
+            flash("Missing required argument: %s" % required_arg)
+
+    if missing_required_args:
+        return redirect("/fabfile/%(fabfile)s/task/%(task_name)s" % locals())
+
+    stdout, stderr = execute_task(task,
+                                  hosts=hosts,
+                                  roles=roles,
+                                  **filtered_form
+                                  )
 
     stdout = easyfab.format_output(stdout)
 
