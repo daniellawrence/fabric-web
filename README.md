@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/daniellawrence/fabric-web.svg?branch=master)](https://travis-ci.org/daniellawrence/fabric-web)fabric-web
+[![Build Status](https://travis-ci.org/daniellawrence/fabric-web.svg?branch=master)](https://travis-ci.org/daniellawrence/fabric-web)
 
 fabric-web
 =============
