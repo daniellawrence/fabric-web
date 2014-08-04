@@ -1,5 +1,7 @@
+[![Build Status](https://travis-ci.org/daniellawrence/fabric-web.svg?branch=master)](https://travis-ci.org/daniellawrence/fabric-web)fabric-web
+
 fabric-web
-==========
+=============
 
 Taking the magic of fabric and throwing up as a website for ease of use
 
