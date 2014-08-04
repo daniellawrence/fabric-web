@@ -8,7 +8,7 @@
     <Hr />
 
     {% if task_dict.argspec.args %}
-    <h4>Arguments required by {{task.name|replace('_',' ')}}</h4>
+    <h4>Arguments required by <em>{{task.name|replace('_',' ')}}</em></h4>
 
 
         {% for arg in task_dict.args_without_defaults %}
