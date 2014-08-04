@@ -77,5 +77,3 @@ def task_to_dict(task):
     task_dict['required_args'] = args_without_defaults
 
     return task_dict
-
-

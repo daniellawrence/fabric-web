@@ -20,7 +20,7 @@ def render(template, *args, **kwargs):
     This stops every call to render_template adding in the same extra **kwargs
     """
     return render_template(template, state=state, env=state.env,
-            settings=settings, *args, **kwargs)
+                           settings=settings, *args, **kwargs)
 
 
 def get_task(fabfile, task_name):
@@ -109,8 +109,6 @@ def task_execute(fabfile, task_name):
     task = get_task(fabfile, task_name)
     form = request.form.copy()
     filtered_form = {}
-
-
 
     hosts = ""
     roles = ""

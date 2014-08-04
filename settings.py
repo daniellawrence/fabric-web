@@ -1,5 +1,4 @@
 # Where to look for main fabfile that should be imported.
-# 
 # fabfile = {
 #   'fabric-web': './fabfile.py'
 #   'users': './fabfile-users.py'
@@ -28,6 +27,6 @@ show_task_code_in_execution_form = True
 
 # Grab you local settings, without messing up the git_commit
 try:
-    import local_settings
+    import local_settings # flake8: noqa
 except ImportError:
     pass
