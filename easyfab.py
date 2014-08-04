@@ -74,6 +74,7 @@ def task_to_dict(task):
     task_dict['defaults'] = defaults
     task_dict['roles'] = roles
     task_dict['hosts'] = hosts
+    task_dict['required_args'] = args_without_defaults
 
     return task_dict
 
