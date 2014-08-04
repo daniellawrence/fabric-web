@@ -75,7 +75,7 @@ def execute_task(task, hosts, roles, *args, **kwargs):
 
     data = None
     try:
-        data = execute(task, *args, **kwargs)
+        data = execute(task, hosts=hosts, *args, **kwargs)
     except SystemExit:
         print "fabric had a fatal exception, that caused it to exit."
     finally:
