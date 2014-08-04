@@ -3,18 +3,21 @@ from fabric import main
 import settings
 import inspect
 
+
 def get_fab_tasks():
     fab_task_list = {}
 
     if type(settings.fabfile).__name__ == 'dict':
         for alias, fabfile in settings.fabfile.items():
             (docstring, tasks, default) = main.load_fabfile(fabfile)
-            fab_task_list[alias] = {'tasks': tasks,
-                                      'doc': docstring,
-                                      'default': default,
-                                      'alias': alias,
-                                     }
+            fab_task_list[alias] = {
+                'tasks': tasks,
+                'doc': docstring,
+                'default': default,
+                'alias': alias,
+            }
     return fab_task_list
+
 
 def format_output(output):
     import re
@@ -26,14 +29,13 @@ def format_output(output):
         if not m:
             continue
         (hostname, message) = m.groups()
-        hosts[hostname].append( message )
+        hosts[hostname].append(message)
 
     return hosts
 
+
 def task_to_dict(task):
     """ Pull apart a task in to an easily consumable dict. """
-
-    orig_task = task
 
     task = task.wrapped
 
@@ -58,7 +60,7 @@ def task_to_dict(task):
 
     if defaults:
         number_of_defaults = len(defaults) * -1
-        args_with_defaults = zip( args[number_of_defaults:], defaults)
+        args_with_defaults = zip(args[number_of_defaults:], defaults)
         args_without_defaults = args[:number_of_defaults]
     else:
         args_with_defaults = []
