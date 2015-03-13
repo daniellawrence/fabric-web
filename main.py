@@ -164,8 +164,7 @@ def task_execute(fabfile, task_name):
     return render('execute.html', task=task, results=stdout, errors=stderr)
 
 if __name__ == '__main__':
-    app.host = settings.listen_ip
-    app.port = settings.listen_port
     app.debug = settings.debug
     app.secret_key = settings.secret_key
-    app.run()
+    app.run(host=settings.listen_ip, port=settings.listen_port)
+    
